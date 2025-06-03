@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   // Get the query parameters
-  const query = getQuery(event);
+  const query  = getQuery(event);
 
   // Log the query parameters to the console
   console.log('Query parameters:', query);

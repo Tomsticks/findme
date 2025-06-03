@@ -33,16 +33,17 @@ import {
     setDoc,
   } from "firebase/firestore";
   
-  
+//   const apikey = process.env.FIREBASE_API_KEY 
+// const projectId = process.env.FIREBASE_PROJECT_ID || "staffprofilling";
+// const storageBucket = process.env.FIREBASE_STORAGE_BUCKET || "staffprofilling.firebasestorage.app";
+// const messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID || "947934716837";
+// const appId = process.env.FIREBASE_APP_ID || "1:947934716837:web:2bca879c7a3ea63adcfe4c";
+
+
+  // console.log(apikey, projectId, storageBucket, messagingSenderId, appId);
   
   const firebaseConfig = {
-      apiKey: "AIzaSyAqIxEK12cKaMWVJdkhC5mFwiMJrfVBKF4",
-      authDomain: "staffprofilling.firebaseapp.com",
-      projectId: "staffprofilling",
-      storageBucket: "staffprofilling.firebasestorage.app",
-      messagingSenderId: "947934716837",
-      appId: "1:947934716837:web:2bca879c7a3ea63adcfe4c",
-      measurementId: "G-L11DKRMEWP"
+      
     };
   
     const app: FirebaseApp = initializeApp(firebaseConfig);
