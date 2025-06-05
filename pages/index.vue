@@ -1,76 +1,111 @@
 <script setup>
 import { ref } from 'vue';
 
+const categories = ref([
+  { name: 'All', active: true },
+  { name: 'Ceramics', active: false },
+  { name: 'Leather', active: false },
+  { name: 'Textiles', active: false },
+]);
+
 const products = ref([
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuD1PvKFxkHbeB98LLqJ172i7Ej78XjABD1tY3-jLVgZ8SkcENsaD0g-mkdIK_1fQT5ECyXmhZTVRpXWDm3EW9l0cyxyZMZ2EC1N__Iv-5kWr4yMM7mDxuzw8hjfKRMYUJQsLIV2JxW90hLS_6fuFMUQAjR1Lz29ZGR6qlntF4Fxg3c8xZpBOQyAUBa64P8-dqsJpurUeWJwgKKsot7PN8XOgGRrCw4A5VhmjANZ0VE80bv99DMugdv9FPiuAEBrDs7PMbPla3PzcMYh",
-    name: "Handmade Ceramic Mug",
-    by: "The Clay Studio",
+    category: 'Ceramics',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD1PvKFxkHbeB98LLqJ172i7Ej78XjABD1tY3-jLVgZ8SkcENsaD0g-mkdIK_1fQT5ECyXmhZTVRpXWDm3EW9l0cyxyZMZ2EC1N__Iv-5kWr4yMM7mDxuzw8hjfKRMYUJQsLIV2JxW90hLS_6fuFMUQAjR1Lz29ZGR6qlntF4Fxg3c8xZpBOQyAUBa64P8-dqsJpurUeWJwgKKsot7PN8XOgGRrCw4A5VhmjANZ0VE80bv99DMugdv9FPiuAEBrDs7PMbPla3PzcMYh',
+    name: 'Handmade Ceramic Mug',
+    by: 'The Clay Studio',
+    price: '$25',
+    location: 'San Francisco, CA',
   },
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDyRwOoZHngIv5N4mOpx6IU1pN2NCKwdLUcG9Ib3XL3imZGZwpmwAfdjmfboFfjwQgNZXXy2eJD31nxLjhyxYCiFeW7ZsH2d4eBqwGPNbrWxdBOYBnn4jzYvQymYkNMz1ZBvADwxj3lWnXkpiGlTJi0fp13VpW6-WskYo1yEsMceFPo4OXwyqcoUQ0Dt7MkpaOre1EBqVMPqRsi0JqMrq-NM_VZgSe5DOpf8GLSByLCy4gO-CGQlk8q_RAD_bBegWLnBY0dcnbtySpI",
-    name: "Vintage Leather Journal",
-    by: "The Leather Workshop",
+    category: 'Ceramics',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA8LIVPfkCO4aWWBReb98OouRWHNZisYEHYfrEqk4niOsymgiUwxPLHriRGk2-QDi6JcoKByDGn-d83upt2z3rVjVzuQw2szBWwwVhi0mHCwS_iaulsKo8TyeWcGcNTsCjD2gQ_2natjsHz8I5562Jgf5R9OL9kTbLHZ6mNV6kO3nxkOTIqLIqs5JDRrb21KoE_4_iStA3zLp4ZrHdlAeCaxYzdAi7J-2AJOswKYZtV_dG4bv-m5HL-BoH0VzAFpJz5jHJmb8v5pOLp',
+    name: 'Ceramic Vase',
+    by: 'The Clay Studio',
+    price: '$45',
+    location: 'San Francisco, CA',
   },
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDcrkPlkUBkiEoE1VvOwsgTPiKackgXH1goCyHZjMY1CXqapR4QWUN-kAd5jMN3t2_7ZEgrpEWM4FGQGzfD3Eh-ng9lmz7QjUzaq1i5sWXCziO6ClbMglbqCjA-6HPgsSyUKhoFa2vQXhkYyREFJXf4X08t6LlakL5-PZI3QCE1tqA0k4UJrXC9FRPUyn9EY4NQI33SlYOhmz7D--NOw8K9VdHYHkPrU6PghFgKjefJLARBZQGjuTLZBOy1FI8mIx2KgTd4MN9OKUxK",
-    name: "Artisan Soap Set",
-    by: "The Soapery",
+    category: 'Ceramics',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC8cCr-JNWHCMjpZe8nbvDQZdjs34iv6gE3Zy9u66VOY2cBTuF3Unq4oUEULfDe1auKcCCsfA81tXnV0MBtlvc_sWtx7Wx8-8S1JxiqaybW06Yfk4ljNwLXefU-02amqi4xcdWczjz-D9FDHKOL_2OrzrEV0CIV1GAmKdYdLTBTbwuj93KWPE8mbveYc-Ffwssj68S7iBpwOffKPbxa6hZND0akKCui1chQcH0E-aPnZcjzlyVkcxl97_9Kp4uT30VMc07vf0GDSMc9',
+    name: 'Ceramic Bowl',
+    by: 'The Clay Studio',
+    price: '$30',
+    location: 'San Francisco, CA',
   },
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDcm1X8tJaBXmsaidg7cpuB3rOLu3rpIHATQ9Dzoxi9og-tLUq14PCIUudy-n-FAxyV0q63K8_N-70xFWu-PpNpYRrywzqN2WVETq2UPPm67RDkGLq9PHxOHMib23YrYqN5jviGLsPsNFupfFDHnkSMCt3gtsUcGMot8A76s9PuibLQyifGXsmGz19OksOieIzMGUiE7Sz0gsu8qjahMWXSHznws8JURNUi3uw33qPJuhKDtZdcs1IWJgca5AxpNUIVq5DuhevxnKyF",
-    name: "Knitted Wool Scarf",
-    by: "The Knit Nook",
+    category: 'Leather',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDyRwOoZHngIv5N4mOpx6IU1pN2NCKwdLUcG9Ib3XL3imZGZwpmwAfdjmfboFfjwQgNZXXy2eJD31nxLjhyxYCiFeW7ZsH2d4eBqwGPNbrWxdBOYBnn4jzYvQymYkNMz1ZBvADwxj3lWnXkpiGlTJi0fp13VpW6-WskYo1yEsMceFPo4OXwyqcoUQ0Dt7MkpaOre1EBqVMPqRsi0JqMrq-NM_VZgSe5DOpf8GLSByLCy4gO-CGQlk8q_RAD_bBegWLnBY0dcnbtySpI',
+    name: 'Vintage Leather Journal',
+    by: 'The Leather Workshop',
+    price: '$50',
+    location: 'Los Angeles, CA',
   },
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAPlZLMYW1EDwB1TqUcY2hI3Pt1WlKXCQTTevDdOr7H1e0RYCpYsA44LfKGBFInyqJZqOfsNJ9IoSLCN0UaoJGt9-I4u25d4f5NElatye8Iwg1d2Wmry8dkF6sRSlu6wFbePDrt-kZMXwyx5LepvWIMVG6yA4-Acw4L7FZ2_sHujBxl5wV6Sqljq1xUHfq7v_qbT-StsXpEnulJD5seIwJuU7XIO_3Qzt9l8lvKWOQru-Y4bEhxFIZz4ckuI_1hC1kIbr2FjBOrZSRI",
-    name: "Wooden Puzzle Toy",
-    by: "The Woodcraft Shop",
+    category: 'Leather',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCHRUC2CsWCl_9JZkOSyoiYvVAVr5kJn7uG7EClWluMHTluV-HUBOSCa_A2k-JcDotPJgg0i0RnB8mes4-QaMUBdWRHeBSCoyo3P3_nVFF-GtDaF1p4SfRbL-Qfvw8gBLUt0bmb6O6qHmJPFwpix0p7jYmIVom4xjjVbkWpIcRooEziUsCTnXwACdlOqbAw3z4Pu_jDxUXPvz1T4uuUFvpvd2pDkCg8X_LRt3EElp9qnsN1g6l-Vyl6hz6roo-KxP8fVokV2Aqa3Wfv',
+    name: 'Leather Wallet',
+    by: 'The Leather Workshop',
+    price: '$35',
+    location: 'Los Angeles, CA',
   },
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB6Tov2P8kP3HNOIJkAc75E53QdIhBf4x3IVeuS-QuicTfx28pjPHSqgVOGyakEK5QSr8zNHlmSrGdoLFz_FqRpLVJBMhDn-Gi815qhaW3AX5d-SyUVroD0aMWsnxG9OkFbcMLuUZddmeNqci8JXNbB4e9N4ZOgCUTHdw3wxeHT-2PZKVonYSL0WlDB-I3cPYC8YIhG99nYA2pqj-C0MmeDu4f4Rg_Qh6Pojf8AJ0SlPzl98CRlvXAYTLRCO9vVplEOVFmBzcC2dPg2",
-    name: "Organic Cotton Baby Blanket",
-    by: "The Baby Boutique",
+    category: 'Leather',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDHmfbTKB5q7v3fUUGr7U31p-OgW8QqC7q2frNrLvWUKCowR7YK0ycH1xTp1qHI_6sC3ZjdVZ10hIjzgbj9jmJC9baIWcJdtsaP7le2-Zw--_eu9lEu7pS62P6mWvqQtN3etxAIM13nT5I4qWM2P9hdO86qzqHRMkoHdE57uB4ZASMHbFw9ACvuJ9sptqQCAKrgyf48maIJNmw9zPG0tD2bZN7leYVQwKWtY-oT5sXb3erb-DGfXZ6zirVnD6fdHpZK4V9YppHz0xIO',
+    name: 'Leather Belt',
+    by: 'The Leather Workshop',
+    price: '$40',
+    location: 'Los Angeles, CA',
   },
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCmH_TNkwnFc9bSTkSgQ6FnH_jHYJpiBmA0ObMoLcrsRo9SbpFWSVIAM_w0HZYBmhLrMyJ68ZSuAx556e7YNraMSBcX3yxqVZz0fMT3wKCxVn47XUHX6K6OQbVg1_lT1PllaqkttcTXhXsaj-l1fhY3PkwvCH0vLhMOb2SSrGoCkxay-nG1eBJ5eRMttsTfng1yXvuNLbMP-a7bGXgQZUnzOXRXipUW3B92yGcSAmoGSa-_ap-GyMLhr8B11LwLBYR1Q50Yrs0w3f5I",
-    name: "Hand-Painted Silk Scarf",
-    by: "The Silk Studio",
+    category: 'Textiles',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDcm1X8tJaBXmsaidg7cpuB3rOLu3rpIHATQ9Dzoxi9og-tLUq14PCIUudy-n-FAxyV0q63K8_N-70xFWu-PpNpYRrywzqN2WVETq2UPPm67RDkGLq9PHxOHMib23YrYqN5jviGLsPsNFupfFDHnkSMCt3gtsUcGMot8A76s9PuibLQyifGXsmGz19OksOieIzMGUiE7Sz0gsu8qjahMWXSHznws8JURNUi3uw33qPJuhKDtZdcs1IWJgca5AxpNUIVq5DuhevxnKyF',
+    name: 'Knitted Wool Scarf',
+    by: 'The Knit Nook',
+    price: '$60',
+    location: 'New York, NY',
   },
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBqEztSC8mvhdZR1NKPdTBu5rofyH8Ou6WFXP0ZCamop848-6e5DlvXX9YX5JcZwqKDuHTnejXwyxEywwIQPGuV3aooq5YAUJqhZQG_NRXnrIe2AcVWVB7uLWM1FVO5Jk2RrPVRNt39P7_qTgml5WBBHsdarC36GEUc_wUoYIW1r_I99vbI1bX4BUflfX1pRHUp80bNLNs8sxW2NWC9LwMfHhlCZI88GsFypk64w1S3CwKFoLmk3c_2vLwbeC_0dR7IKOYd6rUv-ZJs",
-    name: "Recycled Paper Notebook",
-    by: "The Paper Mill",
+    category: 'Textiles',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmH_TNkwnFc9bSTkSgQ6FnH_jHYJpiBmA0ObMoLcrsRo9SbpFWSVIAM_w0HZYBmhLrMyJ68ZSuAx556e7YNraMSBcX3yxqVZz0fMT3wKCxVn47XUHX6K6OQbVg1_lT1PllaqkttcTXhXsaj-l1fhY3PkwvCH0vLhMOb2SSrGoCkxay-nG1eBJ5eRMttsTfng1yXvuNLbMP-a7bGXgQZUnzOXRXipUW3B92yGcSAmoGSa-_ap-GyMLhr8B11LwLBYR1Q50Yrs0w3f5I',
+    name: 'Hand-Painted Silk Scarf',
+    by: 'The Silk Studio',
+    price: '$75',
+    location: 'New York, NY',
   },
   {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAe2zo-hdOf2n9IVuaj3ozfD1o1z0OoZvilz8fDE5mEnyBmzHAyU2ci9MhDcAP1_IeIvaTvfGqylHKzzRmqTeLrV4spa7oRXBCBQbFsdBw18Xsybl4pC3mrKnTMzaEBVFQlwwqigFi3aPJlrbE0DjSFas4KAYD6K-fEh0KoBPSfSlk44F54XKgoZc7juOgBrX426ChWrihSDy-DuTynUm_p-JduYvLOX0GKCmRM_Jajy4x6nj_jBRZinRILEETTTtXqamNTsyioCaTI",
-    name: "Handmade Beaded Bracelet",
-    by: "The Bead Boutique",
-  },
-  {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBaAWpCVqLBOEMq6r-1t8I3kRDllkKtJXGAMSefkBZer-I0uSTw55SooW22ABmbBIl05-hqmgQv81rs4R1dKDdAWuISoKZ3z4d6Y5iSQPateJAE2kBAT6_YbvsGqTnNnRMBEg2_zhLwyy4gnpgh7oWS8GJMSWeNFxPWZOBc0DjOTPjyzlCt555R4jVPp0De2Jw0VtUofJuDu1TudgSrSNtVK_QTCpnq5oAmODhYBvg71TQqg5un3Vu7rROK3O0HO-py1WHea69j94m9",
-    name: "Upcycled Denim Tote Bag",
-    by: "The Denim Depot",
-  },
-  {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAwq5IMgGYRbOVSe6k92G8p85QmIwSjXK-IhxoAHVhzSS7W3sArmUf9vl0l-HY82Ly5Z1tXEdF4noO9SvdEtDEoJTLAKcAGuevcG4qJky-AcZ8JwAQcYnwyiMTA4c0byI6Z29a_DIxG17diDPyA6AQMbUxUSz92JpbRN9y5moChf5wD23wqz9vFQTO8eQirRXUn6VBm8wifk7TM7hk8Sgi2AuW9v_jdh9VNG-Y_IVNN7cuJ_dAAICkfKBY31l8czXgo9uyKGTF2kIyW",
-    name: "Hand-Poured Soy Candle",
-    by: "The Candle Co.",
-  },
-  {
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDM5s1vPev8QEKq-a-FsMRKpTE7LhCr-nbK5rFuEOotLUfqvRyEticnFDLrwBnLiCsm1mYjjU5rMKYk1QER6zA1wjL2hBEEeWsDMaGwtmIcXfqYo1TSjlmkUJSfxYTqDd_QZisEIIqoD8TitFKKEyZ5GI1aJaIu2_bZjCfg3La5rHEO9rb_peWdtPErcZlRSid50wOPc3WhRgzDweGS_oBate0hBQ6Da6JteyFH3DdaFOUXiKRcNwO1DPNi5Gcr7_7_DrkVe13lvl22",
-    name: "Hand-Carved Wooden Spoon",
-    by: "The Woodcarver",
+    category: 'Textiles',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB6Tov2P8kP3HNOIJkAc75E53QdIhBf4x3IVeuS-QuicTfx28pjPHSqgVOGyakEK5QSr8zNHlmSrGdoLFz_FqRpLVJBMhDn-Gi815qhaW3AX5d-SyUVroD0aMWsnxG9OkFbcMLuUZddmeNqci8JXNbB4e9N4ZOgCUTHdw3wxeHT-2PZKVonYSL0WlDB-I3cPYC8YIhG99nYA2pqj-C0MmeDu4f4Rg_Qh6Pojf8AJ0SlPzl98CRlvXAYTLRCO9vVplEOVFmBzcC2dPg2',
+    name: 'Organic Cotton Baby Blanket',
+    by: 'The Baby Boutique',
+    price: '$55',
+    location: 'New York, NY',
   },
 ]);
+
+const activeCategory = ref('All');
+
+const filteredProducts = (category) => {
+  if (category === 'All') {
+    return products.value;
+  }
+  return products.value.filter((product) => product.category === category);
+};
+
+const activateCategory = (categoryName) => {
+  activeCategory.value = categoryName;
+  categories.value.forEach((category) => {
+    category.active = category.name === categoryName;
+  });
+};
 </script>
 
 <template>
-  <div class="relative flex size-full min-h-screen flex-col bg-[#162013] dark group/design-root overflow-x-hidden"
+  <div class="relative flex size-full min-h-screen flex-col bg-[#171f14] dark group/design-root overflow-x-hidden"
     style='font-family: Manrope, "Noto Sans", sans-serif;'>
     <div class="layout-container flex h-full grow flex-col">
       <header
-        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#2e4328] px-10 py-3">
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#2f402b] px-10 py-3">
         <div class="flex items-center gap-8">
           <div class="flex items-center gap-4 text-white">
             <div class="size-4">
@@ -78,8 +113,9 @@ const products = ref([
                 <path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
               </svg>
             </div>
-            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Finding Me</h2>
+            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Crafty</h2>
           </div>
+          <v-btn>kdfhjdj</v-btn>
           <div class="flex items-center gap-9">
             <a class="text-white text-sm font-medium leading-normal" href="#">Home</a>
             <a class="text-white text-sm font-medium leading-normal" href="#">Shop</a>
@@ -90,7 +126,7 @@ const products = ref([
           <label class="flex flex-col min-w-40 !h-10 max-w-64">
             <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
               <div
-                class="text-[#a2c398] flex border-none bg-[#2e4328] items-center justify-center pl-4 rounded-l-xl border-r-0"
+                class="text-[#a4be9d] flex border-none bg-[#2f402b] items-center justify-center pl-4 rounded-l-xl border-r-0"
                 data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
                   viewBox="0 0 256 256">
@@ -100,13 +136,13 @@ const products = ref([
                 </svg>
               </div>
               <input placeholder="Search"
-                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#2e4328] focus:border-none h-full placeholder:text-[#a2c398] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#2f402b] focus:border-none h-full placeholder:text-[#a4be9d] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
                 value="" />
             </div>
           </label>
           <div class="flex gap-2">
             <button
-              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#2e4328] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[red] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
               <div class="text-white" data-icon="Heart" data-size="20px" data-weight="regular">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
                   viewBox="0 0 256 256">
@@ -117,7 +153,7 @@ const products = ref([
               </div>
             </button>
             <button
-              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#2e4328] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-[#2f402b] text-white gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
               <div class="text-white" data-icon="ShoppingBag" data-size="20px" data-weight="regular">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor"
                   viewBox="0 0 256 256">
@@ -138,16 +174,52 @@ const products = ref([
           <div class="flex flex-wrap justify-between gap-3 p-4">
             <p class="text-white tracking-light text-[32px] font-bold leading-tight min-w-72">For You</p>
           </div>
-          <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-            <div v-for="(product, index) in products" :key="index" class="flex flex-col gap-3 pb-3">
-              <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                :style='{ backgroundImage: `url("${product.image}")` }'></div>
-              <div>
-                <p class="text-white text-base font-medium leading-normal">{{ product.name }}</p>
-                <p class="text-[#a2c398] text-sm font-normal leading-normal">By: {{ product.by }}</p>
-              </div>
+          <div class="flex gap-3 p-3 flex-wrap pr-4">
+            <div v-for="category in categories" :key="category.name"
+              class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 cursor-pointer"
+              :class="category.active ? 'bg-[#53d22c] text-[#171f14]' : 'bg-[#2f402b] text-white'"
+              @click="activateCategory(category.name)">
+              <p class="text-sm font-medium leading-normal">{{ category.name }}</p>
             </div>
           </div>
+
+          <template v-if="activeCategory === 'All'">
+            <div v-for="category in categories.filter(c => c.name !== 'All')" :key="category.name">
+              <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">{{
+                category.name }}</h2>
+              <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+                <div v-for="(product, index) in filteredProducts(category.name)" :key="index"
+                  class="flex flex-col gap-3 pb-3">
+                  <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+                    :style='{ backgroundImage: `url("${product.image}")` }'></div>
+                  <div>
+                    <p class="text-white text-base font-medium leading-normal">{{ product.name }}</p>
+                    <p class="text-[#a4be9d] text-sm font-normal leading-normal">By: {{ product.by }}</p>
+                    <p class="text-[#a4be9d] text-sm font-normal leading-normal">{{ product.price }} · {{
+                      product.location }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
+
+          <template v-else>
+            <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">{{
+              activeCategory }}</h2>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+              <div v-for="(product, index) in filteredProducts(activeCategory)" :key="index"
+                class="flex flex-col gap-3 pb-3">
+                <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
+                  :style='{ backgroundImage: `url("${product.image}")` }'></div>
+                <div>
+                  <p class="text-white text-base font-medium leading-normal">{{ product.name }}</p>
+                  <p class="text-[#a4be9d] text-sm font-normal leading-normal">By: {{ product.by }}</p>
+                  <p class="text-[#a4be9d] text-sm font-normal leading-normal">{{ product.price }} · {{ product.location
+                    }}</p>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
     </div>

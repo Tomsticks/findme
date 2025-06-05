@@ -81,6 +81,7 @@ const updateBusinessInformation = () => {
                     <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
                         <label class="flex flex-col min-w-40 flex-1">
                             <p class="text-white text-base font-medium leading-normal pb-2">Contact Email</p>
+                            
                             <input
                                 class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#426039] bg-[#21301c] focus:border-[#426039] h-14 placeholder:text-[#a2c398] p-[15px] text-base font-normal leading-normal"
                                 v-model="contactEmail" />
