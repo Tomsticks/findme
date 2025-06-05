@@ -1,7 +1,8 @@
 import { 
     initializeApp, FirebaseApp 
   } from "firebase/app";
-  
+  import { config } from 'dotenv';
+  config();
   import {
     getAuth,
     Auth,
@@ -33,18 +34,19 @@ import {
     setDoc,
   } from "firebase/firestore";
   
-//   const apikey = process.env.FIREBASE_API_KEY 
-// const projectId = process.env.FIREBASE_PROJECT_ID || "staffprofilling";
-// const storageBucket = process.env.FIREBASE_STORAGE_BUCKET || "staffprofilling.firebasestorage.app";
-// const messagingSenderId = process.env.FIREBASE_MESSAGING_SENDER_ID || "947934716837";
-// const appId = process.env.FIREBASE_APP_ID || "1:947934716837:web:2bca879c7a3ea63adcfe4c";
 
 
-  // console.log(apikey, projectId, storageBucket, messagingSenderId, appId);
-  
+
   const firebaseConfig = {
-      
-    };
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
+    measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+  };
   
     const app: FirebaseApp = initializeApp(firebaseConfig);
     const auth: Auth = getAuth(app);
