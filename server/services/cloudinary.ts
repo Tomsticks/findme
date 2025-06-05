@@ -2,9 +2,10 @@ import { v2 as cloudinary } from 'cloudinary';
 import { config } from 'dotenv';
 config();
 cloudinary.config({
-    cloud_name: 'dvrpodtdw',
-    api_key: '247382469854818',
-    api_secret: 'foPXDIHWCP63Sd_C3ExR-9hAtX0',
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+
 })
   
 export async function uploadImagesToCloudinary(
