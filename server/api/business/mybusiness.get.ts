@@ -1,0 +1,19 @@
+import { query } from '@/server/connections/mysql';
+export default defineEventHandler(async (event) => {
+  const user = event.context.user;
+
+  const business = await query('SELECT * FROM business WHERE user_id = ?', [
+    user?.uid,
+  ]);
+  if (!business) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'No business found for this user',
+      message: 'You have not added any business yet.',
+    });
+  }
+  return {
+    message: 'Business retrieved successfully',
+    business: business,
+  };
+});

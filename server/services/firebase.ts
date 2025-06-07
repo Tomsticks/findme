@@ -86,7 +86,7 @@ import {
         return signInWithPopup(auth, provider);
       }
   
-      signout(): Promise<void> {
+      signout(uid: string): Promise<void> {
         return signOut(auth);
       }
   

@@ -11,7 +11,6 @@ export default defineEventHandler(async (event) => {
   try {
     const userCredential = await authfunc.signup(body.email, body.password);
     const user = userCredential.user;
-    // console.log(user);
     
       if (user) {
           
