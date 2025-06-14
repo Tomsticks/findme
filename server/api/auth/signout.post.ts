@@ -1,14 +1,14 @@
+import { query } from '@/server/connections/mysql';
 import { set } from "mongoose";
 import { authfunc } from "~/server/services/firebase";
 export default defineEventHandler(async (event) => {
+    const query:any = getQuery(event)
     // Ensure the user is authenticated
-    const user = await authfunc.UserState();
-    if (!user) {
-        throw createError({ statusCode: 401, statusMessage: "Unauthorized" });
-    }
+    const user:any = await authfunc.UserState();
+
     // Sign out the user
     await authfunc.signout(
-        user.uid
+        query.id
     );
     setCookie(event, "auth_token", '', {
         httpOnly: true,

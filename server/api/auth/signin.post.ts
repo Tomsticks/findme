@@ -19,15 +19,14 @@ export default defineEventHandler(async (event) => {
 
     const userDetails:any = await query('SELECT * FROM users WHERE id = ?', [user.uid]);
     
-      event.context.user = userDetails
+      event.context.user = userDetails[0]
     
 
 
     return {
       message: "Login successful",
-        uid: user.uid,
-      user:user,
-      email: user.email,
+      user: userDetails[0],
+      status:'success'
       // ... optionally send idToken or refreshToken here (see below)
     };
   } catch (error) {

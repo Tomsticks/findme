@@ -1,11 +1,11 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
-  ssr:false,
+  ssr:true,
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   build: {
-    transpile: ['vuetify'],
+    transpile: ['vuetify','vue-toast-notification'],
   },
   // pinia: {
   //   storesDirs: ['./stores/**', './custom-folder/stores/**'],
@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     },
     //...
     '@nuxtjs/tailwindcss',
-    '@pinia/nuxt',
+    // '@pinia/nuxt',
 
   ],
   

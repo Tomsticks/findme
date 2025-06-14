@@ -21,6 +21,7 @@ export default defineEventHandler(async (event) => {
       // await authfunc.verifyemail(user?.email);
     return {
       message: "User created successfully",
+      statusCode: 201,
       uid: user.uid,
         email: user.email,
         name: body.name,

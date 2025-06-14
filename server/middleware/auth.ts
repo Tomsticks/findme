@@ -1,4 +1,3 @@
-import { set } from "mongoose";
 import { authfunc } from "~/server/services/firebase";
 import {query} from '@/server/connections/mysql';
 const publicAPIRoutes = ['/api/public', '/api/auth/signin', '/api/auth/signup', '/api/auth/signout', '/api/auth/verify-email', '/api/auth/reset-password'];
@@ -33,7 +32,7 @@ export default defineEventHandler(async (event) => {
       secure: process.env.NODE_ENV === "production",
       sameSite: 'strict',
     })
-    throw createError({
+    return({
       statusCode: 401, statusMessage: ' Unauthorized acess', 
       message: 'You are not authorized to access this resource. Please log in or sign up.'})
   }

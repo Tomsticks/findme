@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
             message: 'You are not authorized to access this resource. Please log in or sign up.',
         });
     }
+    
     const body = await readBody(event);
     interface businnesInfo{
         businessName: string;
