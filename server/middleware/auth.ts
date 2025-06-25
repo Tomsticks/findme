@@ -1,6 +1,6 @@
 import { authfunc } from "~/server/services/firebase";
 import {query} from '@/server/connections/mysql';
-const publicAPIRoutes = ['/api/public', '/api/auth/signin', '/api/auth/signup', '/api/auth/signout', '/api/auth/verify-email', '/api/auth/reset-password'];
+const publicAPIRoutes = ['/api/public', '/api/auth/signin', '/api/auth/signup', '/api/auth/signout', '/api/auth/verify-email', '/api/auth/reset-password', '/api/business/businesscart'];
 
 export default defineEventHandler(async (event) => {
   const url = event.node.req.url || ''

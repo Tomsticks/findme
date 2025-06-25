@@ -1,240 +1,194 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-definePageMeta({
-  middleware: "auth", // this should match the name of the file inside the middleware directory
-});
-
-// Define interfaces for better type safety
-interface BusinessInfo {
-  name: string;
-  location: string;
-  contactNumber: string;
-  email: string;
-  website: string;
-}
-
-interface Product {
-  name: string;
-  price: string; // Or number, if you want to perform calculations
-  imageUrl: string;
-}
-
-// Reactive data
-const searchQuery = ref<string>('');
-const activeTab = ref<string>('products'); // 'overview', 'products', 'reviews'
-
-const businessDetails: BusinessInfo = {
-  name: 'The Pottery Studio',
-  location: '123 Clay Street, Anytown, USA',
-  contactNumber: '(555) 123-4567',
-  email: 'info@thepotterystudio.com',
-  website: 'www.thepotterystudio.com',
-};
-
-const products: Product[] = [
-  {
-    name: 'Handmade Ceramic Mug',
-    price: '$25',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5j0yZ_R4HW7jMYXTIFdKp4mqVxVy7JWYUuLPj5sWAe_-mqYysn3gDeaS8qzNC0WngdSYbqTH_xU4JPoYipAb_7A0tJ8DgQuvJA-cVMNG9lNdCgSiErV8i0AYMo8gl899gEmNShaQ0wNMITP-gGc_EyTuef1iCeIbAARWQSXE2RmnGPD6lq5GQTPDUqujShAcRtaRfh5DcMzYJ7ZcHseIivqETRJMM1J5qaAHhad5lprfaZoCdDuMEQJBvYGLjj-jQch5GvnKhMjce',
-  },
-  {
-    name: 'Pottery Kit for Beginners',
-    price: '$50',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDAIVm1Z_yFakMPCCfnfzrmhl0VlPpVNLf8E-JVLgu6Vm9SA03i-omooaMrc9Hz6rTnkty3MgmfFdlnMpFHzQjiZO6bCLleNEB3fXWXATTI6hufh01QzwCdvvcc5inuKDtaV8QVQeqS45KAQAPTHhNwCJnaMOlap_vIYDApdfGLyI7xR6VSw3fdryXv_loXOcgMbZsJkBhM6T-S08N6a3IAGZ7fjAmHExPP6tHRaKBvn2uFMr1fHMIVNzmW4p3ofrESQ9Ll6i2d4L3T',
-  },
-  {
-    name: 'Sculpting Clay Set',
-    price: '$30',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCeTST_yGN_yUC6OaVyriqepHW6LMC7CqGpaGUPi-dd5dPVLm4lmlk4tXiaGIiwWBS3_Jj1d6QMUrbjxz5Ng7pywaWCV0sHd1izxf4UTCWqfCPKyD94tEtwZU5OTq6Cq7W3S6ya4_E46UXXh6QRe3E7LFI_IcnqSI5FRjD1DE-JdLa4dLg1k16lMLjaC1kuTl8yctav-mc4RUDXfVfvNQYvBu8slnNrcZvUAuZ272dQkXQTkBhP43eBX04IN3pB-tqNmMNwCCDmvib0',
-  },
-  {
-    name: 'Glazing Workshop Voucher',
-    price: '$75',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiIyDvIMWMwYLKhsYO05HzAWagRgw52Lq-5fdxZW6ZE5QEhUVAHrfksQi4vS2_VI_F5bbjdgpKQBTxzbEf-Eh2lkZXRSo1akeVfZGtyTLPJ0WmOAliAg71tbduBsM9Od9EKaXFCXXpgyxA4al3Y8F7-qcielS6ZKzZOcuZ6DZCb0MiRxV1Mjz9v1C96BoYJTOHnGvaQKaFx5MYSyzYbrwmuVHI5aB54lezEzU0rxGiZl7l1WtJDhgrO9jlJg10qjiWxBaIv17e3jAM',
-  },
-  {
-    name: 'Ceramic Coasters Set',
-    price: '$20',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCfvUQVSsXyVkh6whT5uxi-XSb0aQv4lX1f6SIGvpAr3NfFVKNmTOhJX_U9siOD8vcNzdmJplKExy2hap3IG52K0ItpCJb5GMauPXm_uCFdhG0HWf2URpbDEpRapB8VqVvU-dslIusk3Te7vtgD9IU6U5nzQZbRT76ydbyb-vozYthweXloDXu7vc-k9Cms_WaYNNxAzXx4ZNpdIBLiLSV-_BSbRfcYXzw3vniE6Mu8JMNfTgUVS9jmh5VREERV4DfoFpNeUyGc0KQQ',
-  },
-  {
-    name: 'Pottery Wheel Rental',
-    price: '$40',
-    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBk48LCglCKZ0Lgd7HcQ-ZgiC8rB_rg9NIWj9fPkjOIt7bPulNn9rBg5m-apHl3fbg1N4r-qGSQbuIW88KRgY2tBfUWCde5JKKUH9tZ1C3KNZ_g5V4607F4KFQOc-u3nFLx4SdNlu3XhFVEXnntPf9dKn6YN_Y3UVBd0bS650BnDQfEgbS-pQvm__LJP4gx0NDfuCYTF9lmrkovTi30WXAxmWrgl7VBExFLek550VX_Lm35JR2f2wNUWszhm1BIpfJyfyfeFnoVL9sv',
-  },
-];
-
-// Methods
-const handleSearchInput = (event: Event) => {
-  searchQuery.value = (event.target as HTMLInputElement).value;
-  // In a real application, you'd likely trigger a search function here
-};
-
-const changeTab = (tab: string) => {
-  activeTab.value = tab;
-};
-
-// You might consider extracting the SVG icons into their own small components
-// For simplicity, they are kept inline here.
-</script>
-
 <template>
   <div
-    class="relative flex size-full min-h-screen flex-col bg-[#162013] dark group/design-root overflow-x-hidden"
-    style='font-family: Manrope, "Noto Sans", sans-serif;'
-  >
+    class="relative flex size-full min-h-screen flex-col bg-[#f9fbf9] dark:bg-[#162013] group/design-root overflow-x-hidden">
     <div class="layout-container flex h-full grow flex-col">
-   <HomeHeader/>
-
-      <div class="px-40 flex flex-1 justify-center py-5">
-        <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-          <div class="flex flex-wrap justify-between gap-3 p-4">
-            <div class="flex min-w-72 flex-col gap-3">
-              <p class="text-white tracking-light text-[32px] font-bold leading-tight">
-                {{ businessDetails.name }}
-              </p>
-              <p class="text-[#a1c398] text-sm font-normal leading-normal">
-                Ceramics and pottery classes
-              </p>
-            </div>
-            <button
-              class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 bg-[#2e4328] text-white text-sm font-medium leading-normal"
-            >
-              <span class="truncate">Edit Business</span>
-            </button>
-          </div>
-
-          <div class="p-4 grid grid-cols-[20%_1fr] gap-x-6">
-            <div class="col-span-2 grid grid-cols-subgrid border-t border-t-[#416039] py-5">
-              <p class="text-[#a1c398] text-sm font-normal leading-normal">Business Name</p>
-              <p class="text-white text-sm font-normal leading-normal">
-                {{ businessDetails.name }}
-              </p>
-            </div>
-            <div class="col-span-2 grid grid-cols-subgrid border-t border-t-[#416039] py-5">
-              <p class="text-[#a1c398] text-sm font-normal leading-normal">Location</p>
-              <p class="text-white text-sm font-normal leading-normal">
-                {{ businessDetails.location }}
-              </p>
-            </div>
-            <div class="col-span-2 grid grid-cols-subgrid border-t border-t-[#416039] py-5">
-              <p class="text-[#a1c398] text-sm font-normal leading-normal">Contact Number</p>
-              <p class="text-white text-sm font-normal leading-normal">
-                {{ businessDetails.contactNumber }}
-              </p>
-            </div>
-            <div class="col-span-2 grid grid-cols-subgrid border-t border-t-[#416039] py-5">
-              <p class="text-[#a1c398] text-sm font-normal leading-normal">Email</p>
-              <p class="text-white text-sm font-normal leading-normal">
-                {{ businessDetails.email }}
-              </p>
-            </div>
-            <div class="col-span-2 grid grid-cols-subgrid border-t border-t-[#416039] py-5">
-              <p class="text-[#a1c398] text-sm font-normal leading-normal">Website</p>
-              <p class="text-white text-sm font-normal leading-normal">
-                {{ businessDetails.website }}
-              </p>
-            </div>
-          </div>
-
-          <div class="pb-3">
-            <div class="flex border-b border-[#416039] px-4 gap-8">
-              <a
-                class="flex flex-col items-center justify-center pb-[13px] pt-4"
-                :class="{
-                  'border-b-[3px] border-b-[#50d22c] text-white': activeTab === 'overview',
-                  'border-b-[3px] border-b-transparent text-[#a1c398]': activeTab !== 'overview',
-                }"
-                href="#"
-                @click.prevent="changeTab('overview')"
-              >
-                <p class="text-sm font-bold leading-normal tracking-[0.015em]">Overview</p>
-              </a>
-              <a
-                class="flex flex-col items-center justify-center pb-[13px] pt-4"
-                :class="{
-                  'border-b-[3px] border-b-[#50d22c] text-white': activeTab === 'products',
-                  'border-b-[3px] border-b-transparent text-[#a1c398]': activeTab !== 'products',
-                }"
-                href="#"
-                @click.prevent="changeTab('products')"
-              >
-                <p class="text-sm font-bold leading-normal tracking-[0.015em]">Products</p>
-              </a>
-              <a
-                class="flex flex-col items-center justify-center pb-[13px] pt-4"
-                :class="{
-                  'border-b-[3px] border-b-[#50d22c] text-white': activeTab === 'reviews',
-                  'border-b-[3px] border-b-transparent text-[#a1c398]': activeTab !== 'reviews',
-                }"
-                href="#"
-                @click.prevent="changeTab('reviews')"
-              >
-                <p class="text-sm font-bold leading-normal tracking-[0.015em]">Reviews</p>
-              </a>
-            </div>
-          </div>
-
-          <template v-if="activeTab === 'products'">
-            <h2
-              class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5"
-            >
-              Products
-            </h2>
-            <div class="flex px-4 py-3 justify-end">
+      <DashboardHeader />
+      <div class="layout-container flex h-full grow flex-col">
+        <div class="md:10 sm:px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap  justify-between gap-3 p-4 items-center">
+              <div class="flex min-w-72 flex-col gap-3">
+                <p class="text-[#121810] tracking-light text-[32px] font-bold leading-tight">Your Businesses</p>
+                <p class="text-secondary text-sm font-normal leading-normal">Manage and track the performance of
+                  your businesses in one place.</p>
+              </div>
               <button
-                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#50d22c] text-[#162013] gap-2 pl-4 text-sm font-bold leading-normal tracking-[0.015em]"
-              >
-                <div class="text-[#162013]" data-icon="Plus" data-size="20px" data-weight="regular">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                    <path
-                      d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"
-                    ></path>
-                  </svg>
-                </div>
-                <span class="truncate">Upload Product</span>
+                class="flex w-42 items-center cursor-pointer border-2 justify-center overflow-hidden rounded-full py-3 bg-black  dark:bg-[#2f402b] text-white dark:text-white text-sm  leading-normal"
+                @click="addBusiness">
+
+                <svg data-slot="icon" class="h-6 text-white" fill="none" stroke-width="2" stroke="currentColor"
+                  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+
+                </svg><span class="truncate text-white  text-sm ">Add Business
+                </span>
               </button>
             </div>
-            <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-              <div v-for="product in products" :key="product.name" class="flex flex-col gap-3 pb-3">
+            <div class="flex flex-wrap gap-4 p-4">
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#ebf1ea]">
+                <p class="text-[#121810] text-base font-medium leading-normal">Total Businesses</p>
+                <p class="text-[#121810] tracking-light text-2xl font-bold leading-tight">{{ myBusiness.length }}</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#ebf1ea]">
+                <p class="text-[#121810] text-base font-medium leading-normal">Total Views</p>
+                <p class="text-[#121810] tracking-light text-2xl font-bold leading-tight">1,250</p>
+              </div>
+              <div class="flex min-w-[158px] flex-1 flex-col gap-2 rounded-xl p-6 bg-[#ebf1ea]">
+                <p class="text-[#121810] text-base font-medium leading-normal">Recent Activity</p>
+                <p class="text-[#121810] tracking-light text-2xl font-bold leading-tight">{{ 0 }} updates</p>
+              </div>
+            </div>
+            <div v-if="!myBusiness || myBusiness.length === 0">
+              <p>no business found</p>
+            </div>
+            <h2 v-else class="text-[#121810] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Your
+              Businesses</h2>
+            <div class="grid grid-cols-[repeat(auto-fit,minmax(200px,2fr))] gap-3 p-4">
+              <div v-for="business in myBusiness" :key="business.bus_id" @click="handleroute(business.bus_id)"
+                class="flex flex-col gap-3 pb-3 cursor-pointer group">
+                <!-- Image Background with dynamic binding -->
                 <div
-                  class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                  :style="{ backgroundImage: `url('${product.imageUrl}')` }"
-                ></div>
+                  class="w-[200px] bg-center bg-no-repeat aspect-square bg-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
+                  :style="`background-image: url('${business.bus_img}')`"></div>
+
+                <!-- Business Info -->
                 <div>
-                  <p class="text-white text-base font-medium leading-normal">{{ product.name }}</p>
-                  <p class="text-[#a1c398] text-sm font-normal leading-normal">
-                    {{ product.price }}
+                  <p class="text-[#121810] text-base font-medium leading-normal">
+                    {{ business.bus_name }}
+                  </p>
+                  <p class="text-[#668a5c] text-sm font-normal truncate leading-normal">
+                    {{ business.bus_desc }}
+                  </p>
+                  <p class="text-[#668a5c] text-sm font-normal leading-normal">
+                    Last updated: {{ Date.now() }}
                   </p>
                 </div>
               </div>
             </div>
-          </template>
 
-          <template v-if="activeTab === 'overview'">
-            <h2
-              class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5"
-            >
-              Overview Details
-            </h2>
-            <p class="text-[#a1c398] px-4">This section would contain more details about the business overview.</p>
-          </template>
 
-          <template v-if="activeTab === 'reviews'">
-            <h2
-              class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5"
-            >
-              Customer Reviews
-            </h2>
-            <p class="text-[#a1c398] px-4">This section would display customer reviews.</p>
-          </template>
+            <h2 class="text-[#121810] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+              Announcements &amp; Tips</h2>
+            <div class="p-4">
+              <div class="flex items-stretch justify-between gap-4 rounded-xl">
+                <div class="flex flex-[2_2_0px] flex-col gap-4">
+                  <div class="flex flex-col gap-1">
+                    <p class="text-[#121810] text-base font-bold leading-tight">Maximize Your Reach</p>
+                    <p class="text-[#668a5c] text-sm font-normal leading-normal">Learn how to optimize your business
+                      listings for better visibility and engagement.</p>
+                  </div>
+                  <button
+                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-8 px-4 flex-row-reverse bg-[#ebf1ea] text-[#121810] text-sm font-medium leading-normal w-fit">
+                    <span class="truncate">Learn More</span>
+                  </button>
+                </div>
+                <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl flex-1"
+                  style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCf6DmP1EpWpkIXTAen67Jtk7dhoTUqDdIIWLrCH3_XtyDoswH0hiQuK2qFoGbe8tQzc3wm-fTarabu4VpTgOCNyFHAt1zoo-cbcVZmGMu1Vicu5WOgBClZ0_b3t_RIBax7XNqZFPzxwO38kEHOgqlp8R_7s0KdFmoAxhiJreQ5eE8SsaW7vQqUzlGsmfMfJj3Di5ryE5QAOKuQEHSL5G15lplZT5mJlJ85XCTvfg1_Me-RqMtdR_yM7vRRlpizq1BiB1VcoATU0920");'>
+                </div>
+              </div>
+            </div>
+            <h2 class="text-[#121810] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Recent
+              Updates</h2>
+            <div class="grid grid-cols-[40px_1fr] gap-x-2 px-4">
+              <div class="flex flex-col items-center gap-1 pt-3">
+                <div class="text-[#121810]" data-icon="PencilSimple" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+                    viewBox="0 0 256 256">
+                    <path
+                      d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM92.69,208H48V163.31l88-88L180.69,120ZM192,108.68,147.31,64l24-24L216,84.68Z">
+                    </path>
+                  </svg>
+                </div>
+                <div class="w-[1.5px] bg-[#d7e2d4] h-2 grow"></div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#121810] text-base font-medium leading-normal">Updated The Cozy Corner Cafe listing
+                </p>
+                <p class="text-[#668a5c] text-base font-normal leading-normal">2 days ago</p>
+              </div>
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-[1.5px] bg-[#d7e2d4] h-2"></div>
+                <div class="text-[#121810]" data-icon="Image" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+                    viewBox="0 0 256 256">
+                    <path
+                      d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z">
+                    </path>
+                  </svg>
+                </div>
+                <div class="w-[1.5px] bg-[#d7e2d4] h-2 grow"></div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#121810] text-base font-medium leading-normal">Added new photos to Tech Solutions
+                  Inc.</p>
+                <p class="text-[#668a5c] text-base font-normal leading-normal">1 week ago</p>
+              </div>
+              <div class="flex flex-col items-center gap-1 pb-3">
+                <div class="w-[1.5px] bg-[#d7e2d4] h-2"></div>
+                <div class="text-[#121810]" data-icon="ChartLine" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+                    viewBox="0 0 256 256">
+                    <path
+                      d="M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0v94.37L90.73,98a8,8,0,0,1,10.07-.38l58.81,44.11L218.73,90a8,8,0,1,1,10.54,12l-64,56a8,8,0,0,1-10.07.38L96.39,114.29,40,163.63V200H224A8,8,0,0,1,232,208Z">
+                    </path>
+                  </svg>
+                </div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#121810] text-base font-medium leading-normal">Checked analytics for Green Thumb
+                  Gardens</p>
+                <p class="text-[#668a5c] text-base font-normal leading-normal">3 days ago</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+
     </div>
   </div>
 </template>
 
-<style scoped>
-/* Any component-specific styles can go here. Tailwind is mostly utility-first,
-   so you might not need much here unless for specific component states or animations. */
-</style>
+<script setup lang="ts">
+import { ref } from 'vue';
+definePageMeta({
+  middleware: 'auth'
+})
+const myBusiness: any = ref(<[]>[]);
+
+async function fetchBusiness() {
+  try {
+    const res: any = await $fetch('/api/business/mybusiness');
+    myBusiness.value = res.business;
+    
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+const router = useRouter();
+// Define a type for your business object
+interface Business {
+  id: string | number;
+  name: string;
+  description: string;
+  imageUrl: string;
+}
+
+function handleroute(id: string | number) {
+  if (!id) {
+    return;
+  }
+  router.push(`/dashboard/${id}`);
+}
+
+
+const addBusiness = () => {
+  router.push('/dashboard/addbusiness');
+  console.log('Add Business button clicked!');
+};
+onBeforeMount(async () => {
+  await fetchBusiness();
+});
+</script>

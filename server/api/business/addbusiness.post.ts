@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 export default defineEventHandler(async (event) => {
     const user = event.context.user;
     
-    // Ensure the user is authenticated
     if (!user) {
         throw createError({
             statusCode: 401,
@@ -25,7 +24,6 @@ export default defineEventHandler(async (event) => {
         user_id: string;
     }
 
-
     // Ensure the request body contains the required fields
     // if (!body || !body.businessName || !body.businessDescription || !body.businessAddress || !body.businessPhone || !body.businessEmail || !body.businessWebsite || !body.businessCategory) {
     //     throw createError({
@@ -34,11 +32,10 @@ export default defineEventHandler(async (event) => {
     //     });
     // }
 
+
     try {
         
-        if (body) {
-            // const imageUrls = await uploadImagesToCloudinary(body.images, 'businesses');
-            // Save the business information to the database
+        if (body) {    
             const businessInfo: businnesInfo = {
                 businessName: body.businessName || '',
                 businessDescription: body.businessDescription || '',
@@ -48,24 +45,32 @@ export default defineEventHandler(async (event) => {
                 businessCategory: body.businessCategory || '',
                 businessImages: body.businessImage, // Store the image URLs as a JSON string
                 user_id: user?.id
-
             };
-            const result:any = await query('INSERT INTO business (bus_id, bus_name, bus_img, bus_desc, bus_location, bus_phone, bus_email, bus_cart, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+            const image = await uploadImagesToCloudinary([businessInfo.businessImages])
+            const imgRes = await image
+            if (!image || image.length == 0) {
+                return {
+                    message:'failed to upload image'
+                }
+            }
+                      
+            const result:any = await query('INSERT INTO business (bus_id, bus_name, bus_img, bus_desc, bus_location, bus_phone, bus_email, bus_cart, user_id, img_public_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                 uuidv4(), // Generate a unique ID for the business
                 businessInfo.businessName,
-                businessInfo.businessImages,
+                imgRes[0].url,
                 businessInfo.businessDescription,
                 businessInfo.businessAddress,
                 businessInfo.businessPhone,
                 businessInfo.businessEmail,
                 businessInfo.businessCategory,
-                businessInfo.user_id 
+                businessInfo.user_id,
+                imgRes[0].public_id,
             ]);
+            console.log(result);
+            
             return {
                 message: 'Business added successfully',
-                businessId: result?.insertId, // Return the ID of the newly created business
-                businessInfo: businessInfo ,
-                user:user
+                // businessInfo: businessInfo ,
             };
             
         }
@@ -73,7 +78,7 @@ export default defineEventHandler(async (event) => {
     } catch (error) {
         throw createError({
             statusCode: 500,
-            statusMessage: 'Failed to upload images',
+            statusMessage: 'Failed to Add to business',
         });
     }
     

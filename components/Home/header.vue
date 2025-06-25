@@ -1,9 +1,9 @@
 <template>
     <div>
         <header
-            class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#2f402b] px-10 py-3">
+            class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 dark:border-b-[#2f402b] px-10 py-3">
             <div class="flex items-center gap-8">
-                <div class="flex items-center gap-4 text-white">
+                <div class="flex items-center gap-4 text-gray-900 dark:text-white">
                     <div class="size-4">
                         <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -11,19 +11,23 @@
                                 fill="currentColor"></path>
                         </svg>
                     </div>
-                    <h2 class="text-white text-lg font-bold leading-tight">LocalBiz</h2>
+                    <h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight">LocalBiz</h2>
                 </div>
-                <div class=" items-center gap-9 hidden lg:flex">
-                    <NuxtLink class="text-white text-sm font-medium leading-normal" to="/">Home</NuxtLink>
-                    <NuxtLink class="text-white text-sm font-medium leading-normal" to="/">About</NuxtLink>
-                    <NuxtLink class="text-white text-sm font-medium leading-normal" to="/">Services</NuxtLink>
-                    <NuxtLink class="text-white text-sm font-medium leading-normal" to="/">Contact</NuxtLink>
+                <div class="items-center gap-9 hidden lg:flex">
+                    <NuxtLink class="text-gray-700 dark:text-white text-sm font-medium leading-normal" to="/">Home
+                    </NuxtLink>
+                    <NuxtLink class="text-gray-700 dark:text-white text-sm font-medium leading-normal" to="/">About
+                    </NuxtLink>
+                    <NuxtLink class="text-gray-700 dark:text-white text-sm font-medium leading-normal" to="/">Services
+                    </NuxtLink>
+                    <NuxtLink class="text-gray-700 dark:text-white text-sm font-medium leading-normal" to="/">Contact
+                    </NuxtLink>
                 </div>
             </div>
             <div class="flex flex-1 justify-end items-center gap-8">
                 <label class="md:flex flex-col min-w-40 !h-10 max-w-64 hidden">
                     <div class="flex w-full flex-1 items-stretch rounded-xl h-full">
-                        <div class="text-[#a4be9d] flex border-none bg-[#2f402b] items-center justify-center pl-4 rounded-l-xl border-r-0 "
+                        <div class="text-gray-500 dark:text-[#a4be9d] flex border-none bg-gray-100 dark:bg-[#2f402b] items-center justify-center pl-4 rounded-l-xl border-r-0"
                             data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
                                 viewBox="0 0 256 256">
@@ -33,26 +37,30 @@
                             </svg>
                         </div>
                         <input placeholder="Search"
-                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow- rounded-xl text-white focus:outline-0 focus:ring-0 border-none bg-[#2f402b] focus:border-none h-full placeholder:text-[#a4be9d] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" />
+                            class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-gray-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-[#2f402b] focus:border-none h-full placeholder:text-gray-500 dark:placeholder:text-[#a4be9d] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" />
                     </div>
                 </label>
-                <div @click="logout"
-                    class="bg-center cursor-pointer bg-no-repeat aspect-square bg-cover  hidden lg:flex text-white items-center   ">
+                <div v-if="user" @click="logout"
+                    class="bg-center cursor-pointer bg-no-repeat aspect-square bg-cover hidden lg:flex text-gray-700 dark:text-white items-center">
                     <span class="truncate">Sign out</span>
                 </div>
+                <div v-else @click="$router.push('/login')"
+                    class="bg-center cursor-pointer bg-no-repeat aspect-square bg-cover hidden lg:flex text-gray-700 dark:text-white items-center">
+                    <span class="truncate">Sign in</span>
+                </div>
                 <NuxtLink to="/dashboard"
-                    class="hidden lg:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow- rounded-full h-10 px-4 bg-[#8cd279] text-[#171f14] text-sm font-bold leading-normal tracking-[0.015em]">
+                    class="hidden lg:flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#8cd279] text-[#171f14] text-sm font-bold leading-normal tracking-[0.015em]">
                     <span class="truncate">List Your Business</span>
                 </NuxtLink>
 
-                <div class="lg:hidden flex items-center justify-center w-10 h-10 bg-[white] rounded-full">
-                    <svg data-slot="icon" class=" h-6 " fill="none" stroke-width="2" stroke="currentColor"
-                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <div
+                    class="lg:hidden flex items-center justify-center w-10 h-10 bg-gray-100 dark:bg-white rounded-full">
+                    <svg data-slot="icon" class="h-6 text-gray-900 dark:text-[#171f14]" fill="none" stroke-width="2"
+                        stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
                     </svg>
                 </div>
-
             </div>
         </header>
     </div>
@@ -60,19 +68,19 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-const { $removeLocalStorage }: any = useNuxtApp()
+const { $getLocalStorage, $setLocalStorage, $removeLocalStorage }: any = useNuxtApp()
 const router = useRouter()
 
+const user = $getLocalStorage('user_id')
+
+
 const logout = async (): Promise<void> => {
-    const res = await fetch('/api/auth/signout',{
-        method:'POST'
+    const res = await fetch(`/api/auth/signout`, {
+        method: 'POST'
     })
     console.log(await res.json());
     $removeLocalStorage('user_id')
     router.push('/')
     // window.reload
-    
-    
 }
-
 </script>

@@ -1,129 +1,221 @@
-<script setup>
-import { ref } from 'vue';
-
-const businessName = ref('');
-const contactEmail = ref('');
-const phoneNumber = ref('');
-const businessDescription = ref('');
-
-// Example image URLs (you'd likely get these from an API or prop)
-const uploadedImages = [
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuBqWA352RW72ZMxWfQn9AlSHs0yEB0aelm1_x-cbqtv99_8tk_F13yAaGvwWGNaAkaadtZDiePAe0tV5Me2xztVcXz_23Nbv0e0Ax1-h9SpSYSI-YzxsYXn3E0a1pxQyai3vtukuan2yWcqj-DmhgdHHkEurJuliwRqAfv9ArQqlxqN-KLE1EOirE7TdCLgWjjONS93d0PZW_yBfI_kezRQc6TgxtEQ64RmP6xE7U0FGDpSWMkxFH_69EV5WhlQpRBQTTYcKznvp6GV",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuDvTiz0oahL80wvBj2X4eGO4LBnf3M2lNz76zTsNcSfPRs1OG3SsM33fvLeHIUiacAGyHQPqX3v1u8ke9SZDvKSPjJHZXIvbT_3J-q0y07C29N-6rQsHkHMVNMfIJj3Gah1J8akB8iHLSwQcxAe4ByjldBG7rmvWS_FlQuMlDELHH_ymYBfpPKikT_CXf4PhVhHjAkcpBOHTp0q2fbMfHbdudXxfBC7uKztml10pf5vwIrX8YW5T20FZDIhFx_oPAZbB3XE48-WG_W7",
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuBGPGOopG3U90uP6oh4nYHADNkQfW0lL-NkRkGi46vM3OjmuHyk1cH4YXjE8-Udggsa54mdzBEhpnxyEgSndJE1cJzBMW1qvfJGac-GNLTznyVQ7X6L3nfNqpFcyjHyQ8AtUaPgqudK9cEyZyawu-O2CtqcCbnvbp956Z3muq9e2ZzgvOk1pj1xzwECYuqu1NgDlxAXhMfJsz83DWbMJY5XX8yPlHmpNGyNiH_Izm9ucpgcEfW99oYYSPmbyQomrFvMZji4IIqrNj2G",
-];
-
-const updateBusinessInformation = () => {
-    // Handle the update logic here, e.g., send data to an API
-    console.log('Updating business information:', {
-        businessName: businessName.value,
-        contactEmail: contactEmail.value,
-        phoneNumber: phoneNumber.value,
-        businessDescription: businessDescription.value,
-    });
-    alert('Business information updated!');
-};
-</script>
-
 <template>
-    <div class="relative flex size-full min-h-screen flex-col bg-[#162013] dark group/design-root overflow-x-hidden"
+    <div class="relative flex size-full min-h-screen flex-col light group/design-root overflow-x-hidden"
         style='font-family: Manrope, "Noto Sans", sans-serif;'>
         <div class="layout-container flex h-full grow flex-col">
-            <header
-                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#2e4328] px-10 py-3">
-                <div class="flex items-center gap-4 text-white">
-                    <div class="size-4">
-                        <!-- <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"
-                                fill="currentColor"></path>
-                        </svg> -->
-                    </div>
-                    <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Finding Me</h2>
-                </div>
-                <div class="flex flex-1 justify-end gap-8">
-                    <div class="flex items-center gap-9">
-                        <a class="text-white text-sm font-medium leading-normal" href="#">Home</a>
-                        <a class="text-white text-sm font-medium leading-normal" href="#">Services</a>
-                        <a class="text-white text-sm font-medium leading-normal" href="#">About</a>
-                        <a class="text-white text-sm font-medium leading-normal" href="#">Contact</a>
-                    </div>
-                    <button
-                        class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#53d22c] text-[#162013] text-sm font-bold leading-normal tracking-[0.015em]">
-                        <span class="truncate">Get Started</span>
-                    </button>
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
-                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDwDiAtFByKyHGhhEP6Umg9B44KcDHz4jD6Jwe9r3QgyA4BpCoB5OXF06VtUwLN51jsSnrjydkVaABpav5rtnMBqXB4RHDvvKrZGBMSvveOjvwXuAxW_JZGZfHPG5Gplj4BfDyJjdfawTXpJCBp5nH9Gdo9FYFrfO_7lVTgjXNyINBiF23MLr6EkYXQWdhhMNBvejDhGjngtNaU3aWCiB_kE86JxIz7oXLvyA6GsNGsJT4gAgklCjPWcnkwPslJZ-eSC_HM4bthzoTj");'>
-                    </div>
-                </div>
-            </header>
-            <div class="px-40 flex flex-1 justify-center py-5">
-                <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <DashboardHeader />
+            <div class="sm:px-5 bg-[#f9fbf9] md:px-40 flex flex-col justify-center py-5    ">
+                <div class="layout-content-container flex flex-col max-w-[960px]  flex-1">
                     <div class="flex flex-wrap justify-between gap-3 p-4">
                         <div class="flex min-w-72 flex-col gap-3">
-                            <p class="text-white tracking-light text-[32px] font-bold leading-tight">Business Dashboard
+                            <p class=" tracking-light text-3xl font-extrabold leading-tight text">Create
+                                Business
                             </p>
-                            <p class="text-[#a2c398] text-sm font-normal leading-normal">Manage your business details
+                            <p class="text-secondary text-sm font-normal leading-normal">Manage your business details
                                 and account settings.</p>
                         </div>
                     </div>
-                    <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Business
-                        Information</h3>
-                    <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                        <label class="flex flex-col min-w-40 flex-1">
-                            <p class="text-white text-base font-medium leading-normal pb-2">Business Name</p>
-                            <input
-                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#426039] bg-[#21301c] focus:border-[#426039] h-14 placeholder:text-[#a2c398] p-[15px] text-base font-normal leading-normal"
-                                v-model="businessName" />
-                        </label>
-                    </div>
-                    <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                        <label class="flex flex-col min-w-40 flex-1">
-                            <p class="text-white text-base font-medium leading-normal pb-2">Contact Email</p>
 
-                            <input
-                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#426039] bg-[#21301c] focus:border-[#426039] h-14 placeholder:text-[#a2c398] p-[15px] text-base font-normal leading-normal"
-                                v-model="contactEmail" />
-                        </label>
-                    </div>
-                    <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                        <label class="flex flex-col min-w-40 flex-1">
-                            <p class="text-white text-base font-medium leading-normal pb-2">Phone Number</p>
-                            <input
-                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#426039] bg-[#21301c] focus:border-[#426039] h-14 placeholder:text-[#a2c398] p-[15px] text-base font-normal leading-normal"
-                                v-model="phoneNumber" />
-                        </label>
-                    </div>
-                    <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-                        <label class="flex flex-col min-w-40 flex-1">
-                            <p class="text-white text-base font-medium leading-normal pb-2">Business Description</p>
-                            <textarea
-                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-white focus:outline-0 focus:ring-0 border border-[#426039] bg-[#21301c] focus:border-[#426039] min-h-36 placeholder:text-[#a2c398] p-[15px] text-base font-normal leading-normal"
-                                v-model="businessDescription"></textarea>
-                        </label>
-                    </div>
-                    <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Uploaded
-                        Images</h3>
-                    <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
-                        <div v-for="(image, index) in uploadedImages" :key="index" class="flex flex-col gap-3">
-                            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-xl"
-                                :style='{ backgroundImage: `url("${image}")` }'></div>
+                    <h3 class="text-gray-900 text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                        Business
+                        Information</h3>
+                    <div class="  px-s rounded-md">
+
+                        <div class="flex max-w-[480px] flex-wrap  items-end gap-4 px-4 py-3">
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <p class="text-gray-900 text-base font-medium leading-normal pb-2">Business Name</p>
+                                <input
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-gray-900 focus:outline-0 focus:ring-0 border border-gray- focus:border-primary h-14 placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                                    v-model="businessName" />
+                            </label>
                         </div>
+                        <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <p class="text-gray-900 text-base font-medium leading-normal pb-2">Contact Email</p>
+
+                                <input
+                                    class="form-input flex w-full min-w-0  focus:border-primary  flex-1 resize-none overflow-hidden rounded-md text-gray-900 focus:outline-0 focus:ring-0 border border-gray-300 h-14 placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                                    v-model="contactEmail" />
+                            </label>
+                        </div>
+                        <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <p class="text-gray-900 text-base font-medium leading-normal pb-2">Phone Number</p>
+                                <input
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-gray-900 focus:outline-0 focus:ring-0 border border-gray-300  focus:border-secondary h-14 placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                                    v-model="phoneNumber" />
+                            </label>
+                        </div>
+                        <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <p class="text-gray-900 text-base font-medium leading-normal pb-2">location </p>
+                                <input
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-gray-900 focus:outline-0 focus:ring-0 border border-gray-300  focus:border-secondary h-14 placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                                    v-model="location" />
+                            </label>
+                        </div>
+                        <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <p class="text-gray-900 text-base font-medium leading-normal pb-2">Category</p>
+                                <select v-model="category"
+                                    class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-gray-900 focus:outline-0 focus:ring-0 border border-gray-300  focus:border-secondary h-14 placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal appearance-none">
+                                    <option value="">Select a category</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Clothing">Clothing</option>
+                                    <option value="Electronics">Electronics</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Education">Education</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                            <label class="flex flex-col min-w-40 flex-1">
+                                <p class="text-gray-900 text-base font-medium leading-normal pb-2">Business Description
+                                </p>
+                                <textarea
+                                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-md text-gray-900 focus:outline-0 focus:ring-0 border border-gray-300  focus:border-secondary min-h-36 placeholder:text-gray-400 p-[15px] text-base font-normal leading-normal"
+                                    v-model="businessDescription"></textarea>
+                            </label>
+                        </div>
+                        <h3 v-if="base64Image"
+                            class="text-gray-900 text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">
+                            Uploaded
+                            Images</h3>
+                        <div class="flex ">
+                            <div class=" w-36 bg-center bg-no-repeat aspect-square bg-contain rounded-xl"
+                                :style='{ backgroundImage: `url("${base64Image}")` }'></div>
+                        </div>
+
+                        <div class="flex flex-col px-10 sm:px-5">
+                            <div @click="triggerFileInput"
+                                class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-secondary  py-14">
+                                <div class="flex max-w-[480px] flex-col items-center gap-2">
+                                    <p v-if="selectedFile"
+                                        class="text-gray-900 text-sm sm:text-xl font-normal leading-normal max-w-[480px] text-center">
+
+                                        Change Logo or Banner</p>
+                                    <p v-else
+                                        class="text-gray-900 text-sm sm:text-xl font-normal leading-normal max-w-[480px] text-center">
+
+                                        Upload your Business Banner or Logo</p>
+                                </div>
+                                <input type="file" ref="fileInput" accept="image/*" @change="onFileChange" />
+
+                            </div>
+                        </div>
+                        <p class="text-gray-600 text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">
+                            Accepted file types: JPG, PNG. Maximum file size: 3MB.
+                        </p>
                     </div>
                     <div class="flex px-4 py-3 justify-end">
-                        <button
-                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#53d22c] text-[#162013] text-sm font-bold leading-normal tracking-[0.015em]"
-                            @click="updateBusinessInformation">
-                            <span class="truncate">Update Business Information</span>
-                        </button>
+                        <v-btn size='large' :loading="loading"
+                            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                            @click="upload">
+                            <span class="truncate">Update Business Information </span>
+                        </v-btn>
+
                     </div>
                 </div>
+
             </div>
+
         </div>
     </div>
+
 </template>
 
 <style scoped>
 /* You can add component-specific styles here if needed */
 </style>
 ```
+<script setup lang="ts">
+import { ref } from 'vue'
+const toast = useToast()
+const router = useRouter()
+definePageMeta({
+    middleware: 'auth'
+})
+
+
+const fileInput = ref<HTMLInputElement | null>(null)
+const triggerFileInput = () => {
+    fileInput.value?.click()
+}
+
+const businessName = ref<string>('')
+const contactEmail = ref<string>('')
+const phoneNumber = ref<string>('')
+const businessDescription = ref<string>('')
+const location = ref<string>('')
+const category = ref<string>('')
+const loading = ref<boolean>(false)
+
+
+const selectedFile = ref<File | null>(null)
+const base64Image = ref<string | null>(null)
+
+const onFileChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0] ?? null;
+
+    if (!file || !file.type.startsWith('image/')) {
+        alert('Only image files are allowed!');
+        selectedFile.value = null;  
+        base64Image.value = '';     
+        target.value = '';          
+        return;
+    }
+
+    selectedFile.value = file;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+        base64Image.value = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+};
+
+async function upload() {
+    loading.value = true
+    if (!businessName.value || !contactEmail.value || !phoneNumber.value || !businessDescription.value || !location.value || !category.value) {
+        loading.value = false
+        return toast.error({
+            title: 'error',
+            message: "all fields are required"
+        })
+
+    }
+    try {
+        const res = await $fetch('/api/business/addbusiness', {
+            method: 'POST',
+            body: {
+                businessName: businessName.value,
+                businessDescription: businessDescription.value,
+                businessAddress: location.value,
+                businessPhone: phoneNumber.value,
+                businessEmail: contactEmail.value,
+                businessImage: base64Image.value,
+                businessCategory: category.value,
+            }
+
+        })
+        toast.success({
+            title: 'sucess',
+            message: res?.message
+        })
+        router.push('/dashboard')
+
+    } catch (error: any) {
+        loading.value = false
+        toast.error({
+            title: 'error',
+            message: error.message
+        })
+
+    }
+}
+
+
+
+
+</script>

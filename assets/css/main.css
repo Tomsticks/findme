@@ -1,8 +1,8 @@
 
 @import "tailwindcss" important;
+@custom-variant dark (&:where(.s, .s *));
 
-/* @theme{
-    primary: #4f46e5;
-    secondary: #f59e0b;
-
-} */
+@theme static {
+    --color-primary: #2e4328;
+    --color-secondary: #668a5c;
+  }

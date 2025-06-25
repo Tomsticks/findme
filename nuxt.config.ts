@@ -1,12 +1,13 @@
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
-  ssr:true,
+  ssr:false,
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
   build: {
     transpile: ['vuetify','vue-toast-notification'],
   },
+  
   // pinia: {
   //   storesDirs: ['./stores/**', './custom-folder/stores/**'],
   // },
@@ -19,9 +20,24 @@ export default defineNuxtConfig({
     },
     //...
     '@nuxtjs/tailwindcss',
+    'nuxt-toast',
+    // '@nuxtjs/toast',
     // '@pinia/nuxt',
 
   ],
+//   toast: {
+//     position: 'top-center',
+//     register: [ // Register custom toasts
+//       {
+//         name: 'my-error',
+//         message: 'Oops...Something went wrong',
+//         options: {
+//           type: 'error'
+//         }
+//       }
+//     ]
+// },
+  
   
   vite: {
     vue: {

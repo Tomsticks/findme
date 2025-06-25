@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 
+definePageMeta({
+    middleware:"auth"
+})
 const handleFileSelect = (event) => {
     const files = event.target.files;
     // Handle file upload logic here (e.g., display previews, send to server)

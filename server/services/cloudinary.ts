@@ -8,16 +8,33 @@ cloudinary.config({
 })
   
 export async function uploadImagesToCloudinary(
-    base64Images: string[],
-    folder: string = 'newapp'
-  ): Promise<string[]> {
-    const results = await Promise.all(
-      base64Images.map((image) =>
-        cloudinary.uploader
-          .upload(image, { folder })
-          .then((res) => res.secure_url)
-      )
+  base64Images: string[],
+  folder: string = 'newapp'
+): Promise<{ url: string; public_id: string }[]> {
+  const results = await Promise.all(
+    base64Images.map((image) =>
+      cloudinary.uploader.upload(image, { folder }).then((res) => ({
+        url: res.secure_url,
+        public_id: res.public_id,
+      }))
     )
-    return results
+  )
+  return results
 }
-    
+
+
+export async function deleteImagesFromCloudinary(
+  publicIds: string[]
+): Promise<{ public_id: string; result: string }[]> {
+  const results = await Promise.all(
+    publicIds.map(async (id) => {
+      try {
+        const res = await cloudinary.uploader.destroy(id)
+        return { public_id: id, result: res.result } // result: "ok", "not found", etc.
+      } catch (error) {
+        return { public_id: id, result: 'error' }
+      }
+    })
+  )
+  return results
+}
